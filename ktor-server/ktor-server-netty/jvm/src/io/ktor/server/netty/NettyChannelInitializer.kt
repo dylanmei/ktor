@@ -77,6 +77,7 @@ class NettyChannelInitializer(
     @Suppress("KDocMissingDocumentation")
     override fun initChannel(ch: SocketChannel) {
         with(ch.pipeline()) {
+            addLast("proxy-protocol", ProxyProtocolHandler())
             if (connector is EngineSSLConnectorConfig) {
                 addLast("ssl", sslContext!!.newHandler(ch.alloc()))
 
